@@ -1,0 +1,47 @@
+{
+	"name": "store_master_excel",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "smeheradlsg2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Store Data Base",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Store Master.xlsx",
+				"fileSystem": "source"
+			},
+			"range": "A2:H1000",
+			"firstRowAsHeader": false
+		},
+		"schema": [
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			}
+		]
+	}
+}
