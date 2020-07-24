@@ -1,5 +1,5 @@
 {
-	"name": "retail_sales_detail_file",
+	"name": "retail_sales_detail_csv",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "smeheradlsg2",
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "Z24D_Retail_Sales_Detail_Report_East_1516.csv",
+				"folderPath": "retail_csv",
 				"fileSystem": "source"
 			},
 			"columnDelimiter": ",",
