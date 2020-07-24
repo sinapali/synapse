@@ -11,11 +11,11 @@
 			"sheetName": "Store Data Base",
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "Store Master.xlsx",
+				"folderPath": "master_excel",
 				"fileSystem": "source"
 			},
-			"range": "A2:H1000",
-			"firstRowAsHeader": false
+			"range": "",
+			"firstRowAsHeader": true
 		},
 		"schema": [
 			{
