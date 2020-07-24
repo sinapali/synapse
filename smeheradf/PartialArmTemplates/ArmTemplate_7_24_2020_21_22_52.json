@@ -6,18 +6,6 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "smeheradf"
-		},
-		"smeheradlsg2_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'smeheradlsg2'"
-		},
-		"smehersynapse_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'smehersynapse'"
-		},
-		"smeheradlsg2_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://smeher.dfs.core.windows.net"
 		}
 	},
 	"variables": {
@@ -25,34 +13,137 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/smeheradlsg2')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"name": "[concat(parameters('factoryName'), '/store_master_pipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('smeheradlsg2_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('smeheradlsg2_accountKey')]"
+				"activities": [
+					{
+						"name": "store_master_copy",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true
+								}
+							},
+							"sink": {
+								"type": "SqlDWSink",
+								"allowPolyBase": true,
+								"polyBaseSettings": {
+									"rejectValue": 0,
+									"rejectType": "value",
+									"useTypeDefault": true
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Sr. No.",
+											"type": "Int16"
+										},
+										"sink": {
+											"name": "store_id",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "Raymark Code",
+											"type": "String"
+										},
+										"sink": {
+											"name": "raymark_code",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Store Name",
+											"type": "String"
+										},
+										"sink": {
+											"name": "store_name",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "City",
+											"type": "String"
+										},
+										"sink": {
+											"name": "city",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "State",
+											"type": "String"
+										},
+										"sink": {
+											"name": "state",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Region",
+											"type": "String"
+										},
+										"sink": {
+											"name": "region",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "MSF Name ",
+											"type": "String"
+										},
+										"sink": {
+											"name": "msf_name",
+											"type": "String"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "store_master_excel",
+								"type": "DatasetReference"
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "AzureSynapseAnalyticsTable2",
+								"type": "DatasetReference"
+							}
+						]
 					}
-				}
+				],
+				"annotations": []
 			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/smehersynapse')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDW",
-				"typeProperties": {
-					"connectionString": "[parameters('smehersynapse_connectionString')]"
-				}
-			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/store_master_excel')]",
+				"[concat(variables('factoryId'), '/datasets/AzureSynapseAnalyticsTable2')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/AzureSynapseAnalyticsTable1')]",
@@ -65,12 +156,9 @@
 				},
 				"annotations": [],
 				"type": "AzureSqlDWTable",
-				"schema": [],
-				"typeProperties": {}
+				"schema": []
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/AzureSynapseAnalyticsTable2')]",
@@ -119,9 +207,7 @@
 					"table": "store"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/retail_sales_detail_csv')]",
@@ -312,9 +398,7 @@
 					}
 				]
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smeheradlsg2')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/retail_sales_detail_tbl')]",
@@ -333,9 +417,7 @@
 					"table": "Retail_Sales_Detail_File"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/store_master_excel')]",
@@ -386,144 +468,7 @@
 					}
 				]
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smeheradlsg2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/store_master_pipeline')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "store_master_copy",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "ExcelSource",
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true
-								}
-							},
-							"sink": {
-								"type": "SqlDWSink",
-								"allowPolyBase": true,
-								"polyBaseSettings": {
-									"rejectValue": 0,
-									"rejectType": "value",
-									"useTypeDefault": true
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "Sr. No.",
-											"type": "Int16"
-										},
-										"sink": {
-											"name": "store_id",
-											"type": "Int32"
-										}
-									},
-									{
-										"source": {
-											"name": "Raymark Code",
-											"type": "String"
-										},
-										"sink": {
-											"name": "raymark_code",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Store Name",
-											"type": "String"
-										},
-										"sink": {
-											"name": "store_name",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "City",
-											"type": "String"
-										},
-										"sink": {
-											"name": "city",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "State",
-											"type": "String"
-										},
-										"sink": {
-											"name": "state",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Region",
-											"type": "String"
-										},
-										"sink": {
-											"name": "region",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "MSF Name ",
-											"type": "String"
-										},
-										"sink": {
-											"name": "msf_name",
-											"type": "String"
-										}
-									}
-								]
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "store_master_excel",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "AzureSynapseAnalyticsTable2",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/store_master_excel')]",
-				"[concat(variables('factoryId'), '/datasets/AzureSynapseAnalyticsTable2')]"
-			]
+			"dependsOn": []
 		}
 	]
 }
