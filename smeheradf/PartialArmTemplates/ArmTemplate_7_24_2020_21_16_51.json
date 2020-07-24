@@ -1,0 +1,399 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "smeheradf"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/retail_sales_detail_file')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "smeheradlsg2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Z24D_Retail_Sales_Detail_Report_East_1516.csv",
+						"fileSystem": "source"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/smeheradlsg2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/synapsetable_retail_sales_detail')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "smehersynapse",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "Store_Code",
+						"type": "varchar"
+					},
+					{
+						"name": "Store_Name",
+						"type": "varchar"
+					},
+					{
+						"name": "CAIS",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TRANSDATE",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TRANSTIME",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TRANSNUM",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "LINE_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "VOID_FLAG",
+						"type": "char"
+					},
+					{
+						"name": "RCPT_NOTE1",
+						"type": "varchar"
+					},
+					{
+						"name": "RCPT_NOTE2",
+						"type": "varchar"
+					},
+					{
+						"name": "SALE_TYPE",
+						"type": "varchar"
+					},
+					{
+						"name": "Brand",
+						"type": "varchar"
+					},
+					{
+						"name": "Department",
+						"type": "varchar"
+					},
+					{
+						"name": "SubDepartment",
+						"type": "varchar"
+					},
+					{
+						"name": "Class",
+						"type": "varchar"
+					},
+					{
+						"name": "Short_name",
+						"type": "varchar"
+					},
+					{
+						"name": "product_code",
+						"type": "varchar"
+					},
+					{
+						"name": "Waist",
+						"type": "char"
+					},
+					{
+						"name": "Inseam",
+						"type": "char"
+					},
+					{
+						"name": "NetSold_Qty",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Cost",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 0
+					},
+					{
+						"name": "Retail_Price",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 0
+					},
+					{
+						"name": "Unit_Price_Sold",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 0
+					},
+					{
+						"name": "Discount_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Discount_Code",
+						"type": "varchar"
+					},
+					{
+						"name": "Discount_Description",
+						"type": "varchar"
+					},
+					{
+						"name": "Line_Applied",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Amount_Discount",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 0
+					},
+					{
+						"name": "Percent_Discount",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 0
+					},
+					{
+						"name": "New_Price_After_Discount",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 0
+					},
+					{
+						"name": "NetSold_Amount",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 0
+					},
+					{
+						"name": "TAX_RATE",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 0
+					},
+					{
+						"name": "TAX_AMOUNT1",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 0
+					},
+					{
+						"name": "TAX_AMOUNT2",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 0
+					},
+					{
+						"name": "staff_code",
+						"type": "varchar"
+					},
+					{
+						"name": "Staff_Name",
+						"type": "varchar"
+					},
+					{
+						"name": "TS_ID",
+						"type": "varchar"
+					},
+					{
+						"name": "PriceOverride",
+						"type": "char"
+					},
+					{
+						"name": "Surver_Gender",
+						"type": "char"
+					},
+					{
+						"name": "Surver_Age",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "vipcode",
+						"type": "int",
+						"precision": 10
+					}
+				],
+				"typeProperties": {
+					"schema": "stage",
+					"table": "Retail_Sales_Detail_File"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/smeheradlsg2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "https://smeher.dfs.core.windows.net",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "**********"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
