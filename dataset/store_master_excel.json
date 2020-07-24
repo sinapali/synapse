@@ -15,7 +15,7 @@
 				"folderPath": "master_excel",
 				"fileSystem": "source"
 			},
-			"range": "A3:H1000",
+			"range": "A3:H609",
 			"firstRowAsHeader": true
 		},
 		"schema": [
