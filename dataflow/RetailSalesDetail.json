@@ -1,5 +1,5 @@
 {
-	"name": "retail_sales_detail",
+	"name": "RetailSalesDetail",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
