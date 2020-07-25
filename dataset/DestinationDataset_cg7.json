@@ -179,7 +179,7 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "prod",
+			"schema": "stage",
 			"table": "Retail_Sales_Detail"
 		}
 	}
