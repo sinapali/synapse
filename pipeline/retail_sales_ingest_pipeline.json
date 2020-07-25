@@ -1,9 +1,9 @@
 {
-	"name": "retail_sales_csv",
+	"name": "retail_sales_ingest_pipeline",
 	"properties": {
 		"activities": [
 			{
-				"name": "retail_sales_detail_copy",
+				"name": "retail_sales_csv",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
