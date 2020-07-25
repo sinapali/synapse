@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy_cg7",
+				"name": "retail_sales_detail_copy",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -471,13 +471,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "SourceDataset_cg7",
+						"referenceName": "retail_sales_detail_csv_dataset",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DestinationDataset_cg7",
+						"referenceName": "retail_sales_detail_stage_table_dataset",
 						"type": "DatasetReference"
 					}
 				]
