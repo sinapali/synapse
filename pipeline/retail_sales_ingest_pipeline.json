@@ -483,9 +483,16 @@
 				]
 			},
 			{
-				"name": "dataflow1",
-				"type": "ExecuteDataFlow",
-				"dependsOn": [],
+				"name": "load_retail_sales_detail_sp",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "retail_sales_csv",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -495,14 +502,11 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataflow": {
-						"referenceName": "RetailSalesDetail",
-						"type": "DataFlowReference"
-					},
-					"compute": {
-						"coreCount": 8,
-						"computeType": "General"
-					}
+					"storedProcedureName": "[prod].[usp_retail_sales]"
+				},
+				"linkedServiceName": {
+					"referenceName": "smehersynapse",
+					"type": "LinkedServiceReference"
 				}
 			}
 		],
