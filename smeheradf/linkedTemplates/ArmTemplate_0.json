@@ -7,6 +7,14 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "smeheradf"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
 		"smeheradlsg2_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'smeheradlsg2'"
@@ -24,6 +32,32 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/smeheradlsg2')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -73,54 +107,196 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureSynapseAnalyticsTable2')]",
+			"name": "[concat(parameters('factoryName'), '/retail_sales_csv_dataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "smehersynapse",
+					"referenceName": "smeheradlsg2",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
-				"type": "AzureSqlDWTable",
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "retail_csv",
+						"fileSystem": "source"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
 				"schema": [
 					{
-						"name": "store_id",
-						"type": "int",
-						"precision": 10
+						"name": "Store_Code",
+						"type": "String"
 					},
 					{
-						"name": "raymark_code",
-						"type": "varchar"
+						"name": "Store_Name",
+						"type": "String"
 					},
 					{
-						"name": "store_name",
-						"type": "varchar"
+						"name": "CAIS",
+						"type": "String"
 					},
 					{
-						"name": "city",
-						"type": "varchar"
+						"name": "TRANSDATE",
+						"type": "String"
 					},
 					{
-						"name": "state",
-						"type": "varchar"
+						"name": "TRANSTIME",
+						"type": "String"
 					},
 					{
-						"name": "region",
-						"type": "varchar"
+						"name": "TRANSNUM",
+						"type": "String"
 					},
 					{
-						"name": "msf_name",
-						"type": "varchar"
+						"name": "LINE_ID",
+						"type": "String"
+					},
+					{
+						"name": "VOID_FLAG",
+						"type": "String"
+					},
+					{
+						"name": "RCPT_NOTE1",
+						"type": "String"
+					},
+					{
+						"name": "RCPT_NOTE2",
+						"type": "String"
+					},
+					{
+						"name": "SALE_TYPE",
+						"type": "String"
+					},
+					{
+						"name": "Brand",
+						"type": "String"
+					},
+					{
+						"name": "Department",
+						"type": "String"
+					},
+					{
+						"name": "SubDepartment",
+						"type": "String"
+					},
+					{
+						"name": "Class",
+						"type": "String"
+					},
+					{
+						"name": "Short_name",
+						"type": "String"
+					},
+					{
+						"name": "product_code",
+						"type": "String"
+					},
+					{
+						"name": "Waist",
+						"type": "String"
+					},
+					{
+						"name": "Inseam",
+						"type": "String"
+					},
+					{
+						"name": "NetSold_Qty",
+						"type": "String"
+					},
+					{
+						"name": "Cost",
+						"type": "String"
+					},
+					{
+						"name": "Retail_Price",
+						"type": "String"
+					},
+					{
+						"name": "Unit_Price_Sold",
+						"type": "String"
+					},
+					{
+						"name": "Discount_ID",
+						"type": "String"
+					},
+					{
+						"name": "Discount_Code",
+						"type": "String"
+					},
+					{
+						"name": "Discount_Description",
+						"type": "String"
+					},
+					{
+						"name": "Line_Applied",
+						"type": "String"
+					},
+					{
+						"name": "Amount_Discount",
+						"type": "String"
+					},
+					{
+						"name": "Percent_Discount",
+						"type": "String"
+					},
+					{
+						"name": "New_Price_After_Discount",
+						"type": "String"
+					},
+					{
+						"name": "NetSold_Amount",
+						"type": "String"
+					},
+					{
+						"name": "TAX_RATE",
+						"type": "String"
+					},
+					{
+						"name": "TAX_AMOUNT1",
+						"type": "String"
+					},
+					{
+						"name": "TAX_AMOUNT2",
+						"type": "String"
+					},
+					{
+						"name": "staff_code",
+						"type": "String"
+					},
+					{
+						"name": "Staff_Name",
+						"type": "String"
+					},
+					{
+						"name": "TS_ID",
+						"type": "String"
+					},
+					{
+						"name": "PriceOverride",
+						"type": "String"
+					},
+					{
+						"name": "Surver_Gender",
+						"type": "String"
+					},
+					{
+						"name": "Surver_Age",
+						"type": "String"
+					},
+					{
+						"name": "vipcode",
+						"type": "String"
 					}
-				],
-				"typeProperties": {
-					"schema": "stage",
-					"table": "store"
-				}
+				]
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
+				"[concat(variables('factoryId'), '/linkedServices/smeheradlsg2')]"
 			]
 		},
 		{
@@ -317,6 +493,390 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/retail_sales_detail_csv_dataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "smeheradlsg2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "retail_csv",
+						"fileSystem": "source"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Store_Code",
+						"type": "String"
+					},
+					{
+						"name": "Store_Name",
+						"type": "String"
+					},
+					{
+						"name": "CAIS",
+						"type": "String"
+					},
+					{
+						"name": "TRANSDATE",
+						"type": "String"
+					},
+					{
+						"name": "TRANSTIME",
+						"type": "String"
+					},
+					{
+						"name": "TRANSNUM",
+						"type": "String"
+					},
+					{
+						"name": "LINE_ID",
+						"type": "String"
+					},
+					{
+						"name": "VOID_FLAG",
+						"type": "String"
+					},
+					{
+						"name": "RCPT_NOTE1",
+						"type": "String"
+					},
+					{
+						"name": "RCPT_NOTE2",
+						"type": "String"
+					},
+					{
+						"name": "SALE_TYPE",
+						"type": "String"
+					},
+					{
+						"name": "Brand",
+						"type": "String"
+					},
+					{
+						"name": "Department",
+						"type": "String"
+					},
+					{
+						"name": "SubDepartment",
+						"type": "String"
+					},
+					{
+						"name": "Class",
+						"type": "String"
+					},
+					{
+						"name": "Short_name",
+						"type": "String"
+					},
+					{
+						"name": "product_code",
+						"type": "String"
+					},
+					{
+						"name": "Waist",
+						"type": "String"
+					},
+					{
+						"name": "Inseam",
+						"type": "String"
+					},
+					{
+						"name": "NetSold_Qty",
+						"type": "String"
+					},
+					{
+						"name": "Cost",
+						"type": "String"
+					},
+					{
+						"name": "Retail_Price",
+						"type": "String"
+					},
+					{
+						"name": "Unit_Price_Sold",
+						"type": "String"
+					},
+					{
+						"name": "Discount_ID",
+						"type": "String"
+					},
+					{
+						"name": "Discount_Code",
+						"type": "String"
+					},
+					{
+						"name": "Discount_Description",
+						"type": "String"
+					},
+					{
+						"name": "Line_Applied",
+						"type": "String"
+					},
+					{
+						"name": "Amount_Discount",
+						"type": "String"
+					},
+					{
+						"name": "Percent_Discount",
+						"type": "String"
+					},
+					{
+						"name": "New_Price_After_Discount",
+						"type": "String"
+					},
+					{
+						"name": "NetSold_Amount",
+						"type": "String"
+					},
+					{
+						"name": "TAX_RATE",
+						"type": "String"
+					},
+					{
+						"name": "TAX_AMOUNT1",
+						"type": "String"
+					},
+					{
+						"name": "TAX_AMOUNT2",
+						"type": "String"
+					},
+					{
+						"name": "staff_code",
+						"type": "String"
+					},
+					{
+						"name": "Staff_Name",
+						"type": "String"
+					},
+					{
+						"name": "TS_ID",
+						"type": "String"
+					},
+					{
+						"name": "PriceOverride",
+						"type": "String"
+					},
+					{
+						"name": "Surver_Gender",
+						"type": "String"
+					},
+					{
+						"name": "Surver_Age",
+						"type": "String"
+					},
+					{
+						"name": "vipcode",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/smeheradlsg2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/retail_sales_detail_stage_table_dataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "smehersynapse",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "Store_Code",
+						"type": "varchar"
+					},
+					{
+						"name": "Store_Name",
+						"type": "varchar"
+					},
+					{
+						"name": "CAIS",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TRANSDATE",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TRANSTIME",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TRANSNUM",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "LINE_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "VOID_FLAG",
+						"type": "char"
+					},
+					{
+						"name": "RCPT_NOTE1",
+						"type": "varchar"
+					},
+					{
+						"name": "RCPT_NOTE2",
+						"type": "varchar"
+					},
+					{
+						"name": "SALE_TYPE",
+						"type": "varchar"
+					},
+					{
+						"name": "Brand",
+						"type": "varchar"
+					},
+					{
+						"name": "Department",
+						"type": "varchar"
+					},
+					{
+						"name": "SubDepartment",
+						"type": "varchar"
+					},
+					{
+						"name": "Class",
+						"type": "varchar"
+					},
+					{
+						"name": "Short_name",
+						"type": "varchar"
+					},
+					{
+						"name": "product_code",
+						"type": "varchar"
+					},
+					{
+						"name": "Waist",
+						"type": "varchar"
+					},
+					{
+						"name": "Inseam",
+						"type": "varchar"
+					},
+					{
+						"name": "NetSold_Qty",
+						"type": "varchar"
+					},
+					{
+						"name": "Cost",
+						"type": "varchar"
+					},
+					{
+						"name": "Retail_Price",
+						"type": "varchar"
+					},
+					{
+						"name": "Unit_Price_Sold",
+						"type": "varchar"
+					},
+					{
+						"name": "Discount_ID",
+						"type": "varchar"
+					},
+					{
+						"name": "Discount_Code",
+						"type": "varchar"
+					},
+					{
+						"name": "Discount_Description",
+						"type": "varchar"
+					},
+					{
+						"name": "Line_Applied",
+						"type": "varchar"
+					},
+					{
+						"name": "Amount_Discount",
+						"type": "varchar"
+					},
+					{
+						"name": "Percent_Discount",
+						"type": "varchar"
+					},
+					{
+						"name": "New_Price_After_Discount",
+						"type": "varchar"
+					},
+					{
+						"name": "NetSold_Amount",
+						"type": "varchar"
+					},
+					{
+						"name": "TAX_RATE",
+						"type": "varchar"
+					},
+					{
+						"name": "TAX_AMOUNT1",
+						"type": "varchar"
+					},
+					{
+						"name": "TAX_AMOUNT2",
+						"type": "varchar"
+					},
+					{
+						"name": "staff_code",
+						"type": "varchar"
+					},
+					{
+						"name": "Staff_Name",
+						"type": "varchar"
+					},
+					{
+						"name": "TS_ID",
+						"type": "varchar"
+					},
+					{
+						"name": "PriceOverride",
+						"type": "varchar"
+					},
+					{
+						"name": "Surver_Gender",
+						"type": "varchar"
+					},
+					{
+						"name": "Surver_Age",
+						"type": "varchar"
+					},
+					{
+						"name": "vipcode",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "stage",
+					"table": "Retail_Sales_Detail"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/retail_sales_detail_tbl')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -391,6 +951,582 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/store_stage_table_dataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "smehersynapse",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "store_id",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "raymark_code",
+						"type": "varchar"
+					},
+					{
+						"name": "store_name",
+						"type": "varchar"
+					},
+					{
+						"name": "city",
+						"type": "varchar"
+					},
+					{
+						"name": "state",
+						"type": "varchar"
+					},
+					{
+						"name": "region",
+						"type": "varchar"
+					},
+					{
+						"name": "msf_name",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "stage",
+					"table": "store"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/retail_sales_ingest_pipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "retail_sales_csv",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "source/retail_csv/"
+							},
+							{
+								"name": "Destination",
+								"value": "prod.Retail_Sales_Detail"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings",
+									"skipLineCount": 0
+								}
+							},
+							"sink": {
+								"type": "SqlDWSink",
+								"allowPolyBase": true,
+								"polyBaseSettings": {
+									"rejectValue": 0,
+									"rejectType": "value",
+									"useTypeDefault": false
+								}
+							},
+							"enableStaging": true,
+							"stagingSettings": {
+								"linkedServiceName": {
+									"referenceName": "AzureBlobStorage1",
+									"type": "LinkedServiceReference"
+								},
+								"path": "source/retail_csv"
+							},
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Store_Code",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Store_Code",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Store_Name",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Store_Name",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CAIS",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CAIS",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "TRANSDATE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "TRANSDATE",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "TRANSTIME",
+											"type": "String"
+										},
+										"sink": {
+											"name": "TRANSTIME",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "TRANSNUM",
+											"type": "String"
+										},
+										"sink": {
+											"name": "TRANSNUM",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "LINE_ID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "LINE_ID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "VOID_FLAG",
+											"type": "String"
+										},
+										"sink": {
+											"name": "VOID_FLAG",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "RCPT_NOTE1",
+											"type": "String"
+										},
+										"sink": {
+											"name": "RCPT_NOTE1",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "RCPT_NOTE2",
+											"type": "String"
+										},
+										"sink": {
+											"name": "RCPT_NOTE2",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "SALE_TYPE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SALE_TYPE",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Brand",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Brand",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Department",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Department",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "SubDepartment",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SubDepartment",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Class",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Class",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Short_name",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Short_name",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "product_code",
+											"type": "String"
+										},
+										"sink": {
+											"name": "product_code",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Waist",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Waist",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Inseam",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Inseam",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "NetSold_Qty",
+											"type": "String"
+										},
+										"sink": {
+											"name": "NetSold_Qty",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Cost",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Cost",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Retail_Price",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Retail_Price",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Unit_Price_Sold",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Unit_Price_Sold",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Discount_ID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Discount_ID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Discount_Code",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Discount_Code",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Discount_Description",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Discount_Description",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Line_Applied",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Line_Applied",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Amount_Discount",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Amount_Discount",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Percent_Discount",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Percent_Discount",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "New_Price_After_Discount",
+											"type": "String"
+										},
+										"sink": {
+											"name": "New_Price_After_Discount",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "NetSold_Amount",
+											"type": "String"
+										},
+										"sink": {
+											"name": "NetSold_Amount",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TAX_RATE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "TAX_RATE",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TAX_AMOUNT1",
+											"type": "String"
+										},
+										"sink": {
+											"name": "TAX_AMOUNT1",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TAX_AMOUNT2",
+											"type": "String"
+										},
+										"sink": {
+											"name": "TAX_AMOUNT2",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "staff_code",
+											"type": "String"
+										},
+										"sink": {
+											"name": "staff_code",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Staff_Name",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Staff_Name",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "TS_ID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "TS_ID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PriceOverride",
+											"type": "String"
+										},
+										"sink": {
+											"name": "PriceOverride",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Surver_Gender",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Surver_Gender",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Surver_Age",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Surver_Age",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "vipcode",
+											"type": "String"
+										},
+										"sink": {
+											"name": "vipcode",
+											"type": "String"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "retail_sales_detail_csv_dataset",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "retail_sales_detail_stage_table_dataset",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "load_retail_sales_detail_sp",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "retail_sales_csv",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[prod].[usp_retail_sales]"
+						},
+						"linkedServiceName": {
+							"referenceName": "smehersynapse",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/retail_sales_detail_csv_dataset')]",
+				"[concat(variables('factoryId'), '/datasets/retail_sales_detail_stage_table_dataset')]",
+				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/store_master_pipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -418,12 +1554,14 @@
 							},
 							"sink": {
 								"type": "SqlDWSink",
+								"preCopyScript": "truncate table stage.store;",
 								"allowPolyBase": true,
 								"polyBaseSettings": {
 									"rejectValue": 0,
 									"rejectType": "value",
-									"useTypeDefault": true
-								}
+									"useTypeDefault": false
+								},
+								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
 							"translator": {
@@ -511,14 +1649,14 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "AzureSynapseAnalyticsTable2",
+								"referenceName": "store_stage_table_dataset",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						]
 					},
 					{
-						"name": "store_master_sp",
+						"name": "load_store_master_sp",
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
@@ -549,8 +1687,42 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/store_master_excel')]",
-				"[concat(variables('factoryId'), '/datasets/AzureSynapseAnalyticsTable2')]",
+				"[concat(variables('factoryId'), '/datasets/store_stage_table_dataset')]",
 				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/RetailSalesDetail')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "retail_sales_detail_csv_dataset",
+								"type": "DatasetReference"
+							},
+							"name": "source1"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "retail_sales_detail_stage_table_dataset",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [],
+					"script": "source(output(\n\t\tStore_Code as string,\n\t\tStore_Name as string,\n\t\tCAIS as string,\n\t\tTRANSDATE as string,\n\t\tTRANSTIME as string,\n\t\tTRANSNUM as string,\n\t\tLINE_ID as string,\n\t\tVOID_FLAG as string,\n\t\tRCPT_NOTE1 as string,\n\t\tRCPT_NOTE2 as string,\n\t\tSALE_TYPE as string,\n\t\tBrand as string,\n\t\tDepartment as string,\n\t\tSubDepartment as string,\n\t\tClass as string,\n\t\tShort_name as string,\n\t\tproduct_code as string,\n\t\tWaist as string,\n\t\tInseam as string,\n\t\tNetSold_Qty as string,\n\t\tCost as string,\n\t\tRetail_Price as string,\n\t\tUnit_Price_Sold as string,\n\t\tDiscount_ID as string,\n\t\tDiscount_Code as string,\n\t\tDiscount_Description as string,\n\t\tLine_Applied as string,\n\t\tAmount_Discount as string,\n\t\tPercent_Discount as string,\n\t\tNew_Price_After_Discount as string,\n\t\tNetSold_Amount as string,\n\t\tTAX_RATE as string,\n\t\tTAX_AMOUNT1 as string,\n\t\tTAX_AMOUNT2 as string,\n\t\tstaff_code as string,\n\t\tStaff_Name as string,\n\t\tTS_ID as string,\n\t\tPriceOverride as string,\n\t\tSurver_Gender as string,\n\t\tSurver_Age as string,\n\t\tvipcode as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\twildcardPaths:['retail_csv/']) ~> source1\nsource1 sink(input(\n\t\tStore_Code as string,\n\t\tStore_Name as string,\n\t\tCAIS as integer,\n\t\tTRANSDATE as integer,\n\t\tTRANSTIME as integer,\n\t\tTRANSNUM as integer,\n\t\tLINE_ID as integer,\n\t\tVOID_FLAG as string,\n\t\tRCPT_NOTE1 as string,\n\t\tRCPT_NOTE2 as string,\n\t\tSALE_TYPE as string,\n\t\tBrand as string,\n\t\tDepartment as string,\n\t\tSubDepartment as string,\n\t\tClass as string,\n\t\tShort_name as string,\n\t\tproduct_code as string,\n\t\tWaist as string,\n\t\tInseam as string,\n\t\tNetSold_Qty as string,\n\t\tCost as string,\n\t\tRetail_Price as string,\n\t\tUnit_Price_Sold as string,\n\t\tDiscount_ID as string,\n\t\tDiscount_Code as string,\n\t\tDiscount_Description as string,\n\t\tLine_Applied as string,\n\t\tAmount_Discount as string,\n\t\tPercent_Discount as string,\n\t\tNew_Price_After_Discount as string,\n\t\tNetSold_Amount as string,\n\t\tTAX_RATE as string,\n\t\tTAX_AMOUNT1 as string,\n\t\tTAX_AMOUNT2 as string,\n\t\tstaff_code as string,\n\t\tStaff_Name as string,\n\t\tTS_ID as string,\n\t\tPriceOverride as string,\n\t\tSurver_Gender as string,\n\t\tSurver_Age as string,\n\t\tvipcode as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tstaged: true,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/retail_sales_detail_csv_dataset')]",
+				"[concat(variables('factoryId'), '/datasets/retail_sales_detail_stage_table_dataset')]"
 			]
 		}
 	]

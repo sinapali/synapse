@@ -6,26 +6,6 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "smeheradf"
-		},
-		"AzureBlobStorage1_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
-		},
-		"AzureSqlDatabase1_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
-		},
-		"smeheradlsg2_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'smeheradlsg2'"
-		},
-		"smehersynapse_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'smehersynapse'"
-		},
-		"smeheradlsg2_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://smeher.dfs.core.windows.net"
 		}
 	},
 	"variables": {
@@ -508,15 +488,13 @@
 						"inputs": [
 							{
 								"referenceName": "retail_sales_detail_csv_dataset",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "retail_sales_detail_stage_table_dataset",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					},
@@ -552,9 +530,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/retail_sales_detail_csv_dataset')]",
-				"[concat(variables('factoryId'), '/datasets/retail_sales_detail_stage_table_dataset')]",
-				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]",
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+				"[concat(variables('factoryId'), '/datasets/retail_sales_detail_stage_table_dataset')]"
 			]
 		},
 		{
@@ -674,15 +650,13 @@
 						"inputs": [
 							{
 								"referenceName": "store_master_excel",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "store_stage_table_dataset",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					},
@@ -717,27 +691,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/store_master_excel')]",
-				"[concat(variables('factoryId'), '/datasets/store_stage_table_dataset')]",
-				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSynapseAnalyticsTable1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "smehersynapse",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlDWTable",
-				"schema": [],
-				"typeProperties": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
+				"[concat(variables('factoryId'), '/datasets/store_stage_table_dataset')]"
 			]
 		},
 		{
@@ -929,202 +883,7 @@
 					}
 				]
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smeheradlsg2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/retail_sales_detail_csv')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "smeheradlsg2",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "retail_csv",
-						"fileSystem": "source"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "Store_Code",
-						"type": "String"
-					},
-					{
-						"name": "Store_Name",
-						"type": "String"
-					},
-					{
-						"name": "CAIS",
-						"type": "String"
-					},
-					{
-						"name": "TRANSDATE",
-						"type": "String"
-					},
-					{
-						"name": "TRANSTIME",
-						"type": "String"
-					},
-					{
-						"name": "TRANSNUM",
-						"type": "String"
-					},
-					{
-						"name": "LINE_ID",
-						"type": "String"
-					},
-					{
-						"name": "VOID_FLAG",
-						"type": "String"
-					},
-					{
-						"name": "RCPT_NOTE1",
-						"type": "String"
-					},
-					{
-						"name": "RCPT_NOTE2",
-						"type": "String"
-					},
-					{
-						"name": "SALE_TYPE",
-						"type": "String"
-					},
-					{
-						"name": "Brand",
-						"type": "String"
-					},
-					{
-						"name": "Department",
-						"type": "String"
-					},
-					{
-						"name": "SubDepartment",
-						"type": "String"
-					},
-					{
-						"name": "Class",
-						"type": "String"
-					},
-					{
-						"name": "Short_name",
-						"type": "String"
-					},
-					{
-						"name": "product_code",
-						"type": "String"
-					},
-					{
-						"name": "Waist",
-						"type": "String"
-					},
-					{
-						"name": "Inseam",
-						"type": "String"
-					},
-					{
-						"name": "NetSold_Qty",
-						"type": "String"
-					},
-					{
-						"name": "Cost",
-						"type": "String"
-					},
-					{
-						"name": "Retail_Price",
-						"type": "String"
-					},
-					{
-						"name": "Unit_Price_Sold",
-						"type": "String"
-					},
-					{
-						"name": "Discount_ID",
-						"type": "String"
-					},
-					{
-						"name": "Discount_Code",
-						"type": "String"
-					},
-					{
-						"name": "Discount_Description",
-						"type": "String"
-					},
-					{
-						"name": "Line_Applied",
-						"type": "String"
-					},
-					{
-						"name": "Amount_Discount",
-						"type": "String"
-					},
-					{
-						"name": "Percent_Discount",
-						"type": "String"
-					},
-					{
-						"name": "New_Price_After_Discount",
-						"type": "String"
-					},
-					{
-						"name": "NetSold_Amount",
-						"type": "String"
-					},
-					{
-						"name": "TAX_RATE",
-						"type": "String"
-					},
-					{
-						"name": "TAX_AMOUNT1",
-						"type": "String"
-					},
-					{
-						"name": "TAX_AMOUNT2",
-						"type": "String"
-					},
-					{
-						"name": "staff_code",
-						"type": "String"
-					},
-					{
-						"name": "Staff_Name",
-						"type": "String"
-					},
-					{
-						"name": "TS_ID",
-						"type": "String"
-					},
-					{
-						"name": "PriceOverride",
-						"type": "String"
-					},
-					{
-						"name": "Surver_Gender",
-						"type": "String"
-					},
-					{
-						"name": "Surver_Age",
-						"type": "String"
-					},
-					{
-						"name": "vipcode",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smeheradlsg2')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/retail_sales_detail_csv_dataset')]",
@@ -1315,9 +1074,7 @@
 					}
 				]
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smeheradlsg2')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/retail_sales_detail_stage_table_dataset')]",
@@ -1506,83 +1263,7 @@
 					"table": "Retail_Sales_Detail"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/retail_sales_detail_tbl')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "smehersynapse",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlDWTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "stage",
-					"table": "Retail_Sales_Detail_File"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/store_master_excel')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "smeheradlsg2",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Excel",
-				"typeProperties": {
-					"sheetName": "Store Data Base",
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "Store Master.xlsx",
-						"folderPath": "master_excel",
-						"fileSystem": "source"
-					},
-					"range": "A3:H609",
-					"firstRowAsHeader": true
-				},
-				"schema": [
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smeheradlsg2')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/store_stage_table_dataset')]",
@@ -1629,64 +1310,6 @@
 				"typeProperties": {
 					"schema": "stage",
 					"table": "store"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/smeheradlsg2')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('smeheradlsg2_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('smeheradlsg2_accountKey')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/smehersynapse')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDW",
-				"typeProperties": {
-					"connectionString": "[parameters('smehersynapse_connectionString')]"
 				}
 			},
 			"dependsOn": []
