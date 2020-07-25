@@ -1,5 +1,5 @@
 {
-	"name": "SourceDataset_cg7",
+	"name": "retail_sales_csv_dataset",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "smeheradlsg2",
