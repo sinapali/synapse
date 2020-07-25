@@ -1,0 +1,488 @@
+{
+	"name": "retail_sales_detail",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_cg7",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "source/retail_csv/"
+					},
+					{
+						"name": "Destination",
+						"value": "prod.Retail_Sales_Detail"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings",
+							"skipLineCount": 0
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"allowPolyBase": true,
+						"polyBaseSettings": {
+							"rejectValue": 0,
+							"rejectType": "value",
+							"useTypeDefault": false
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "AzureBlobStorage1",
+							"type": "LinkedServiceReference"
+						},
+						"path": "source/retail_csv"
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Store_Code",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Store_Code",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Store_Name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Store_Name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CAIS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CAIS",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "TRANSDATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TRANSDATE",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "TRANSTIME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TRANSTIME",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "TRANSNUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TRANSNUM",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "LINE_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LINE_ID",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "VOID_FLAG",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOID_FLAG",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RCPT_NOTE1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "RCPT_NOTE1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RCPT_NOTE2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "RCPT_NOTE2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SALE_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SALE_TYPE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Brand",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Brand",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Department",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Department",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SubDepartment",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SubDepartment",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Class",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Class",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Short_name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Short_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "product_code",
+									"type": "String"
+								},
+								"sink": {
+									"name": "product_code",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Waist",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Waist",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Inseam",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Inseam",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "NetSold_Qty",
+									"type": "String"
+								},
+								"sink": {
+									"name": "NetSold_Qty",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Cost",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Cost",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Retail_Price",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Retail_Price",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Unit_Price_Sold",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Unit_Price_Sold",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Discount_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Discount_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Discount_Code",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Discount_Code",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Discount_Description",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Discount_Description",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Line_Applied",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Line_Applied",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Amount_Discount",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Amount_Discount",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Percent_Discount",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Percent_Discount",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "New_Price_After_Discount",
+									"type": "String"
+								},
+								"sink": {
+									"name": "New_Price_After_Discount",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "NetSold_Amount",
+									"type": "String"
+								},
+								"sink": {
+									"name": "NetSold_Amount",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TAX_RATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TAX_RATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TAX_AMOUNT1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TAX_AMOUNT1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TAX_AMOUNT2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TAX_AMOUNT2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "staff_code",
+									"type": "String"
+								},
+								"sink": {
+									"name": "staff_code",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Staff_Name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Staff_Name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TS_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TS_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PriceOverride",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PriceOverride",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Surver_Gender",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Surver_Gender",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Surver_Age",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Surver_Age",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "vipcode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "vipcode",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_cg7",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_cg7",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

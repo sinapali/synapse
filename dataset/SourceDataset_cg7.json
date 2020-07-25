@@ -1,0 +1,188 @@
+{
+	"name": "SourceDataset_cg7",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "smeheradlsg2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "retail_csv",
+				"fileSystem": "source"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Store_Code",
+				"type": "String"
+			},
+			{
+				"name": "Store_Name",
+				"type": "String"
+			},
+			{
+				"name": "CAIS",
+				"type": "String"
+			},
+			{
+				"name": "TRANSDATE",
+				"type": "String"
+			},
+			{
+				"name": "TRANSTIME",
+				"type": "String"
+			},
+			{
+				"name": "TRANSNUM",
+				"type": "String"
+			},
+			{
+				"name": "LINE_ID",
+				"type": "String"
+			},
+			{
+				"name": "VOID_FLAG",
+				"type": "String"
+			},
+			{
+				"name": "RCPT_NOTE1",
+				"type": "String"
+			},
+			{
+				"name": "RCPT_NOTE2",
+				"type": "String"
+			},
+			{
+				"name": "SALE_TYPE",
+				"type": "String"
+			},
+			{
+				"name": "Brand",
+				"type": "String"
+			},
+			{
+				"name": "Department",
+				"type": "String"
+			},
+			{
+				"name": "SubDepartment",
+				"type": "String"
+			},
+			{
+				"name": "Class",
+				"type": "String"
+			},
+			{
+				"name": "Short_name",
+				"type": "String"
+			},
+			{
+				"name": "product_code",
+				"type": "String"
+			},
+			{
+				"name": "Waist",
+				"type": "String"
+			},
+			{
+				"name": "Inseam",
+				"type": "String"
+			},
+			{
+				"name": "NetSold_Qty",
+				"type": "String"
+			},
+			{
+				"name": "Cost",
+				"type": "String"
+			},
+			{
+				"name": "Retail_Price",
+				"type": "String"
+			},
+			{
+				"name": "Unit_Price_Sold",
+				"type": "String"
+			},
+			{
+				"name": "Discount_ID",
+				"type": "String"
+			},
+			{
+				"name": "Discount_Code",
+				"type": "String"
+			},
+			{
+				"name": "Discount_Description",
+				"type": "String"
+			},
+			{
+				"name": "Line_Applied",
+				"type": "String"
+			},
+			{
+				"name": "Amount_Discount",
+				"type": "String"
+			},
+			{
+				"name": "Percent_Discount",
+				"type": "String"
+			},
+			{
+				"name": "New_Price_After_Discount",
+				"type": "String"
+			},
+			{
+				"name": "NetSold_Amount",
+				"type": "String"
+			},
+			{
+				"name": "TAX_RATE",
+				"type": "String"
+			},
+			{
+				"name": "TAX_AMOUNT1",
+				"type": "String"
+			},
+			{
+				"name": "TAX_AMOUNT2",
+				"type": "String"
+			},
+			{
+				"name": "staff_code",
+				"type": "String"
+			},
+			{
+				"name": "Staff_Name",
+				"type": "String"
+			},
+			{
+				"name": "TS_ID",
+				"type": "String"
+			},
+			{
+				"name": "PriceOverride",
+				"type": "String"
+			},
+			{
+				"name": "Surver_Gender",
+				"type": "String"
+			},
+			{
+				"name": "Surver_Age",
+				"type": "String"
+			},
+			{
+				"name": "vipcode",
+				"type": "String"
+			}
+		]
+	}
+}
