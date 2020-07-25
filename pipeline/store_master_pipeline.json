@@ -124,7 +124,7 @@
 				]
 			},
 			{
-				"name": "store_master_sp",
+				"name": "load_store_master_sp",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
