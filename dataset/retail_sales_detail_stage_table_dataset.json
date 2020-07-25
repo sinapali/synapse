@@ -1,5 +1,5 @@
 {
-	"name": "DestinationDataset_cg7",
+	"name": "retail_sales_detail_stage_table_dataset",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "smehersynapse",
