@@ -19,6 +19,12 @@
 						"referenceName": "RetailSalesDetail",
 						"type": "DataFlowReference"
 					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "smeheradlsg2",
+							"type": "LinkedServiceReference"
+						}
+					},
 					"compute": {
 						"coreCount": 8,
 						"computeType": "General"
