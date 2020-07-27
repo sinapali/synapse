@@ -1,0 +1,33 @@
+{
+	"name": "DimProductDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "smehersynapse",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "product_code",
+				"type": "varchar"
+			},
+			{
+				"name": "brand",
+				"type": "varchar"
+			},
+			{
+				"name": "department",
+				"type": "varchar"
+			},
+			{
+				"name": "sub_department",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "prod",
+			"table": "dim_product"
+		}
+	}
+}

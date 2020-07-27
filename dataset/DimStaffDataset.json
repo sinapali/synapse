@@ -1,0 +1,25 @@
+{
+	"name": "DimStaffDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "smehersynapse",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "staff_code",
+				"type": "varchar"
+			},
+			{
+				"name": "staff_name",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "prod",
+			"table": "dim_staff"
+		}
+	}
+}
