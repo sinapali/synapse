@@ -1,5 +1,5 @@
 {
-	"name": "AzureSynapseAnalyticsTable1",
+	"name": "retail_sales_detail_prod_table_dataset",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "smehersynapse",
