@@ -1,0 +1,25 @@
+{
+	"name": "DimStoreDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "smehersynapse",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "store_code",
+				"type": "varchar"
+			},
+			{
+				"name": "store_name",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "prod",
+			"table": "dim_store"
+		}
+	}
+}
