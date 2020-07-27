@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "RetailSalesDetail",
+				"name": "Sales_Reprorting_Dataflow",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
