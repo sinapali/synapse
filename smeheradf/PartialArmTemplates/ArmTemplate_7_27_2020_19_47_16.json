@@ -89,15 +89,7 @@
 						"typeProperties": {
 							"dataflow": {
 								"referenceName": "RetailSalesDetail",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"RetailSalesDetail": {},
-									"FactSales": {},
-									"DimStore": {},
-									"DimProduct": {},
-									"DimStaff": {}
-								}
+								"type": "DataFlowReference"
 							},
 							"staging": {
 								"linkedService": {
@@ -118,6 +110,26 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/RetailSalesDetail')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trigger1')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 1,
+						"startTime": "2020-07-27T13:30:00.000Z",
+						"timeZone": "UTC"
+					}
+				}
+			},
+			"dependsOn": []
 		}
 	]
 }
