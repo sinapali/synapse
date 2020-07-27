@@ -89,7 +89,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureSynapseAnalyticsTable1')]",
+			"name": "[concat(parameters('factoryName'), '/retail_sales_detail_prod_table_dataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -99,8 +99,181 @@
 				},
 				"annotations": [],
 				"type": "AzureSqlDWTable",
-				"schema": [],
-				"typeProperties": {}
+				"schema": [
+					{
+						"name": "Store_Code",
+						"type": "varchar"
+					},
+					{
+						"name": "Store_Name",
+						"type": "varchar"
+					},
+					{
+						"name": "CAIS",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TRANSDATE",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TRANSTIME",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TRANSNUM",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "LINE_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "VOID_FLAG",
+						"type": "char"
+					},
+					{
+						"name": "RCPT_NOTE1",
+						"type": "varchar"
+					},
+					{
+						"name": "RCPT_NOTE2",
+						"type": "varchar"
+					},
+					{
+						"name": "SALE_TYPE",
+						"type": "varchar"
+					},
+					{
+						"name": "Brand",
+						"type": "varchar"
+					},
+					{
+						"name": "Department",
+						"type": "varchar"
+					},
+					{
+						"name": "SubDepartment",
+						"type": "varchar"
+					},
+					{
+						"name": "Class",
+						"type": "varchar"
+					},
+					{
+						"name": "Short_name",
+						"type": "varchar"
+					},
+					{
+						"name": "product_code",
+						"type": "varchar"
+					},
+					{
+						"name": "Waist",
+						"type": "varchar"
+					},
+					{
+						"name": "Inseam",
+						"type": "varchar"
+					},
+					{
+						"name": "NetSold_Qty",
+						"type": "varchar"
+					},
+					{
+						"name": "Cost",
+						"type": "varchar"
+					},
+					{
+						"name": "Retail_Price",
+						"type": "varchar"
+					},
+					{
+						"name": "Unit_Price_Sold",
+						"type": "varchar"
+					},
+					{
+						"name": "Discount_ID",
+						"type": "varchar"
+					},
+					{
+						"name": "Discount_Code",
+						"type": "varchar"
+					},
+					{
+						"name": "Discount_Description",
+						"type": "varchar"
+					},
+					{
+						"name": "Line_Applied",
+						"type": "varchar"
+					},
+					{
+						"name": "Amount_Discount",
+						"type": "varchar"
+					},
+					{
+						"name": "Percent_Discount",
+						"type": "varchar"
+					},
+					{
+						"name": "New_Price_After_Discount",
+						"type": "varchar"
+					},
+					{
+						"name": "NetSold_Amount",
+						"type": "varchar"
+					},
+					{
+						"name": "TAX_RATE",
+						"type": "varchar"
+					},
+					{
+						"name": "TAX_AMOUNT1",
+						"type": "varchar"
+					},
+					{
+						"name": "TAX_AMOUNT2",
+						"type": "varchar"
+					},
+					{
+						"name": "staff_code",
+						"type": "varchar"
+					},
+					{
+						"name": "Staff_Name",
+						"type": "varchar"
+					},
+					{
+						"name": "TS_ID",
+						"type": "varchar"
+					},
+					{
+						"name": "PriceOverride",
+						"type": "varchar"
+					},
+					{
+						"name": "Surver_Gender",
+						"type": "varchar"
+					},
+					{
+						"name": "Surver_Age",
+						"type": "varchar"
+					},
+					{
+						"name": "vipcode",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "prod",
+					"table": "Retail_Sales_Detail"
+				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
@@ -1002,6 +1175,187 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureSynapseAnalyticsTable2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "smehersynapse",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FactSalesDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "smehersynapse",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "transaction_date",
+						"type": "date"
+					},
+					{
+						"name": "transaction_num",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "line_id",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "store_code",
+						"type": "varchar"
+					},
+					{
+						"name": "product_code",
+						"type": "varchar"
+					},
+					{
+						"name": "staff_code",
+						"type": "varchar"
+					},
+					{
+						"name": "net_sold_qty",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "net_sold_amt",
+						"type": "decimal",
+						"precision": 9,
+						"scale": 2
+					},
+					{
+						"name": "tax_amt",
+						"type": "decimal",
+						"precision": 9,
+						"scale": 2
+					}
+				],
+				"typeProperties": {
+					"schema": "prod",
+					"table": "fact_sales"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DimStoreDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "smehersynapse",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "store_code",
+						"type": "varchar"
+					},
+					{
+						"name": "store_name",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "prod",
+					"table": "dim_store"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DimProductDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "smehersynapse",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "product_code",
+						"type": "varchar"
+					},
+					{
+						"name": "brand",
+						"type": "varchar"
+					},
+					{
+						"name": "department",
+						"type": "varchar"
+					},
+					{
+						"name": "sub_department",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "prod",
+					"table": "dim_product"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DimStaffDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "smehersynapse",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "staff_code",
+						"type": "varchar"
+					},
+					{
+						"name": "staff_name",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "prod",
+					"table": "dim_staff"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/retail_sales_ingest_pipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1701,28 +2055,56 @@
 					"sources": [
 						{
 							"dataset": {
-								"referenceName": "retail_sales_detail_csv_dataset",
+								"referenceName": "retail_sales_detail_prod_table_dataset",
 								"type": "DatasetReference"
 							},
-							"name": "source1"
+							"name": "RetailSalesDetail"
 						}
 					],
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "retail_sales_detail_stage_table_dataset",
+								"referenceName": "FactSalesDataset",
 								"type": "DatasetReference"
 							},
-							"name": "sink1"
+							"name": "FactSales"
+						},
+						{
+							"dataset": {
+								"referenceName": "DimStoreDataset",
+								"type": "DatasetReference"
+							},
+							"name": "DimStore"
+						},
+						{
+							"dataset": {
+								"referenceName": "DimProductDataset",
+								"type": "DatasetReference"
+							},
+							"name": "DimProduct"
+						},
+						{
+							"dataset": {
+								"referenceName": "DimStaffDataset",
+								"type": "DatasetReference"
+							},
+							"name": "DimStaff"
 						}
 					],
-					"transformations": [],
-					"script": "source(output(\n\t\tStore_Code as string,\n\t\tStore_Name as string,\n\t\tCAIS as string,\n\t\tTRANSDATE as string,\n\t\tTRANSTIME as string,\n\t\tTRANSNUM as string,\n\t\tLINE_ID as string,\n\t\tVOID_FLAG as string,\n\t\tRCPT_NOTE1 as string,\n\t\tRCPT_NOTE2 as string,\n\t\tSALE_TYPE as string,\n\t\tBrand as string,\n\t\tDepartment as string,\n\t\tSubDepartment as string,\n\t\tClass as string,\n\t\tShort_name as string,\n\t\tproduct_code as string,\n\t\tWaist as string,\n\t\tInseam as string,\n\t\tNetSold_Qty as string,\n\t\tCost as string,\n\t\tRetail_Price as string,\n\t\tUnit_Price_Sold as string,\n\t\tDiscount_ID as string,\n\t\tDiscount_Code as string,\n\t\tDiscount_Description as string,\n\t\tLine_Applied as string,\n\t\tAmount_Discount as string,\n\t\tPercent_Discount as string,\n\t\tNew_Price_After_Discount as string,\n\t\tNetSold_Amount as string,\n\t\tTAX_RATE as string,\n\t\tTAX_AMOUNT1 as string,\n\t\tTAX_AMOUNT2 as string,\n\t\tstaff_code as string,\n\t\tStaff_Name as string,\n\t\tTS_ID as string,\n\t\tPriceOverride as string,\n\t\tSurver_Gender as string,\n\t\tSurver_Age as string,\n\t\tvipcode as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\twildcardPaths:['retail_csv/']) ~> source1\nsource1 sink(input(\n\t\tStore_Code as string,\n\t\tStore_Name as string,\n\t\tCAIS as integer,\n\t\tTRANSDATE as integer,\n\t\tTRANSTIME as integer,\n\t\tTRANSNUM as integer,\n\t\tLINE_ID as integer,\n\t\tVOID_FLAG as string,\n\t\tRCPT_NOTE1 as string,\n\t\tRCPT_NOTE2 as string,\n\t\tSALE_TYPE as string,\n\t\tBrand as string,\n\t\tDepartment as string,\n\t\tSubDepartment as string,\n\t\tClass as string,\n\t\tShort_name as string,\n\t\tproduct_code as string,\n\t\tWaist as string,\n\t\tInseam as string,\n\t\tNetSold_Qty as string,\n\t\tCost as string,\n\t\tRetail_Price as string,\n\t\tUnit_Price_Sold as string,\n\t\tDiscount_ID as string,\n\t\tDiscount_Code as string,\n\t\tDiscount_Description as string,\n\t\tLine_Applied as string,\n\t\tAmount_Discount as string,\n\t\tPercent_Discount as string,\n\t\tNew_Price_After_Discount as string,\n\t\tNetSold_Amount as string,\n\t\tTAX_RATE as string,\n\t\tTAX_AMOUNT1 as string,\n\t\tTAX_AMOUNT2 as string,\n\t\tstaff_code as string,\n\t\tStaff_Name as string,\n\t\tTS_ID as string,\n\t\tPriceOverride as string,\n\t\tSurver_Gender as string,\n\t\tSurver_Age as string,\n\t\tvipcode as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tstaged: true,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+					"transformations": [
+						{
+							"name": "DerivedColumn1"
+						}
+					],
+					"script": "source(output(\n\t\tStore_Code as string,\n\t\tStore_Name as string,\n\t\tCAIS as integer,\n\t\tTRANSDATE as integer,\n\t\tTRANSTIME as integer,\n\t\tTRANSNUM as integer,\n\t\tLINE_ID as integer,\n\t\tVOID_FLAG as string,\n\t\tRCPT_NOTE1 as string,\n\t\tRCPT_NOTE2 as string,\n\t\tSALE_TYPE as string,\n\t\tBrand as string,\n\t\tDepartment as string,\n\t\tSubDepartment as string,\n\t\tClass as string,\n\t\tShort_name as string,\n\t\tproduct_code as string,\n\t\tWaist as string,\n\t\tInseam as string,\n\t\tNetSold_Qty as string,\n\t\tCost as string,\n\t\tRetail_Price as string,\n\t\tUnit_Price_Sold as string,\n\t\tDiscount_ID as string,\n\t\tDiscount_Code as string,\n\t\tDiscount_Description as string,\n\t\tLine_Applied as string,\n\t\tAmount_Discount as string,\n\t\tPercent_Discount as string,\n\t\tNew_Price_After_Discount as string,\n\t\tNetSold_Amount as string,\n\t\tTAX_RATE as string,\n\t\tTAX_AMOUNT1 as string,\n\t\tTAX_AMOUNT2 as string,\n\t\tstaff_code as string,\n\t\tStaff_Name as string,\n\t\tTS_ID as string,\n\t\tPriceOverride as string,\n\t\tSurver_Gender as string,\n\t\tSurver_Age as string,\n\t\tvipcode as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table',\n\tstaged: false,\n\twildcardPaths:['retail_csv/']) ~> RetailSalesDetail\nRetailSalesDetail derive(transaction_date = toDate(toString(TRANSDATE),'yyyyMMdd'),\n\t\ttax_amt = coalesce(toDecimal(TAX_AMOUNT1),0) + coalesce(toDecimal(TAX_AMOUNT2),0)) ~> DerivedColumn1\nDerivedColumn1 sink(input(\n\t\ttransaction_date as date,\n\t\ttransaction_num as integer,\n\t\tline_id as integer,\n\t\tstore_code as string,\n\t\tproduct_code as string,\n\t\tstaff_code as string,\n\t\tnet_sold_qty as integer,\n\t\tnet_sold_amt as decimal(9,2),\n\t\ttax_amt as decimal(9,2)\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tstaged: true,\n\tmapColumn(\n\t\ttransaction_date,\n\t\ttransaction_num = TRANSNUM,\n\t\tline_id = LINE_ID,\n\t\tstore_code = Store_Code,\n\t\tproduct_code,\n\t\tstaff_code,\n\t\tnet_sold_qty = NetSold_Qty,\n\t\tnet_sold_amt = NetSold_Amount,\n\t\ttax_amt\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> FactSales\nRetailSalesDetail sink(input(\n\t\tstore_code as string,\n\t\tstore_name as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tstaged: true,\n\tmapColumn(\n\t\tstore_code = Store_Code,\n\t\tstore_name = Store_Name\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> DimStore\nRetailSalesDetail sink(input(\n\t\tproduct_code as string,\n\t\tbrand as string,\n\t\tdepartment as string,\n\t\tsub_department as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tstaged: true,\n\tmapColumn(\n\t\tproduct_code,\n\t\tbrand = Brand,\n\t\tdepartment = Department,\n\t\tsub_department = SubDepartment\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> DimProduct\nRetailSalesDetail sink(input(\n\t\tstaff_code as string,\n\t\tstaff_name as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tstaged: true,\n\tmapColumn(\n\t\tstaff_code,\n\t\tstaff_name = Staff_Name\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> DimStaff"
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/retail_sales_detail_csv_dataset')]",
-				"[concat(variables('factoryId'), '/datasets/retail_sales_detail_stage_table_dataset')]"
+				"[concat(variables('factoryId'), '/datasets/retail_sales_detail_prod_table_dataset')]",
+				"[concat(variables('factoryId'), '/datasets/FactSalesDataset')]",
+				"[concat(variables('factoryId'), '/datasets/DimStoreDataset')]",
+				"[concat(variables('factoryId'), '/datasets/DimProductDataset')]",
+				"[concat(variables('factoryId'), '/datasets/DimStaffDataset')]"
 			]
 		}
 	]
