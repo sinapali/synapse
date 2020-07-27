@@ -23,7 +23,8 @@
 						"linkedService": {
 							"referenceName": "smeheradlsg2",
 							"type": "LinkedServiceReference"
-						}
+						},
+						"folderPath": "source"
 					},
 					"compute": {
 						"coreCount": 8,
