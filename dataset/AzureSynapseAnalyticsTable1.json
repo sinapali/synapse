@@ -7,6 +7,180 @@
 		},
 		"annotations": [],
 		"type": "AzureSqlDWTable",
-		"schema": []
+		"schema": [
+			{
+				"name": "Store_Code",
+				"type": "varchar"
+			},
+			{
+				"name": "Store_Name",
+				"type": "varchar"
+			},
+			{
+				"name": "CAIS",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "TRANSDATE",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "TRANSTIME",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "TRANSNUM",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "LINE_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "VOID_FLAG",
+				"type": "char"
+			},
+			{
+				"name": "RCPT_NOTE1",
+				"type": "varchar"
+			},
+			{
+				"name": "RCPT_NOTE2",
+				"type": "varchar"
+			},
+			{
+				"name": "SALE_TYPE",
+				"type": "varchar"
+			},
+			{
+				"name": "Brand",
+				"type": "varchar"
+			},
+			{
+				"name": "Department",
+				"type": "varchar"
+			},
+			{
+				"name": "SubDepartment",
+				"type": "varchar"
+			},
+			{
+				"name": "Class",
+				"type": "varchar"
+			},
+			{
+				"name": "Short_name",
+				"type": "varchar"
+			},
+			{
+				"name": "product_code",
+				"type": "varchar"
+			},
+			{
+				"name": "Waist",
+				"type": "varchar"
+			},
+			{
+				"name": "Inseam",
+				"type": "varchar"
+			},
+			{
+				"name": "NetSold_Qty",
+				"type": "varchar"
+			},
+			{
+				"name": "Cost",
+				"type": "varchar"
+			},
+			{
+				"name": "Retail_Price",
+				"type": "varchar"
+			},
+			{
+				"name": "Unit_Price_Sold",
+				"type": "varchar"
+			},
+			{
+				"name": "Discount_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "Discount_Code",
+				"type": "varchar"
+			},
+			{
+				"name": "Discount_Description",
+				"type": "varchar"
+			},
+			{
+				"name": "Line_Applied",
+				"type": "varchar"
+			},
+			{
+				"name": "Amount_Discount",
+				"type": "varchar"
+			},
+			{
+				"name": "Percent_Discount",
+				"type": "varchar"
+			},
+			{
+				"name": "New_Price_After_Discount",
+				"type": "varchar"
+			},
+			{
+				"name": "NetSold_Amount",
+				"type": "varchar"
+			},
+			{
+				"name": "TAX_RATE",
+				"type": "varchar"
+			},
+			{
+				"name": "TAX_AMOUNT1",
+				"type": "varchar"
+			},
+			{
+				"name": "TAX_AMOUNT2",
+				"type": "varchar"
+			},
+			{
+				"name": "staff_code",
+				"type": "varchar"
+			},
+			{
+				"name": "Staff_Name",
+				"type": "varchar"
+			},
+			{
+				"name": "TS_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "PriceOverride",
+				"type": "varchar"
+			},
+			{
+				"name": "Surver_Gender",
+				"type": "varchar"
+			},
+			{
+				"name": "Surver_Age",
+				"type": "varchar"
+			},
+			{
+				"name": "vipcode",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "prod",
+			"table": "Retail_Sales_Detail"
+		}
 	}
 }
