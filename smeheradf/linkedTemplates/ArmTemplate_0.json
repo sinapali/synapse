@@ -109,7 +109,25 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/retail_sales_detail_prod_table_dataset')]",
+			"name": "[concat(parameters('factoryName'), '/AzureSynapseAnalyticsTable2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "smehersynapse",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DimProductDataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -121,72 +139,119 @@
 				"type": "AzureSqlDWTable",
 				"schema": [
 					{
-						"name": "Store_Code",
+						"name": "product_code",
 						"type": "varchar"
 					},
 					{
-						"name": "Store_Name",
+						"name": "brand",
 						"type": "varchar"
 					},
 					{
-						"name": "CAIS",
+						"name": "department",
+						"type": "varchar"
+					},
+					{
+						"name": "sub_department",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "prod",
+					"table": "dim_product"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DimStaffDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "smehersynapse",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "staff_code",
+						"type": "varchar"
+					},
+					{
+						"name": "staff_name",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "prod",
+					"table": "dim_staff"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DimStoreDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "smehersynapse",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "store_code",
+						"type": "varchar"
+					},
+					{
+						"name": "store_name",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "prod",
+					"table": "dim_store"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FactSalesDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "smehersynapse",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "transaction_date",
+						"type": "date"
+					},
+					{
+						"name": "transaction_num",
 						"type": "int",
 						"precision": 10
 					},
 					{
-						"name": "TRANSDATE",
+						"name": "line_id",
 						"type": "int",
 						"precision": 10
 					},
 					{
-						"name": "TRANSTIME",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "TRANSNUM",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "LINE_ID",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "VOID_FLAG",
-						"type": "char"
-					},
-					{
-						"name": "RCPT_NOTE1",
-						"type": "varchar"
-					},
-					{
-						"name": "RCPT_NOTE2",
-						"type": "varchar"
-					},
-					{
-						"name": "SALE_TYPE",
-						"type": "varchar"
-					},
-					{
-						"name": "Brand",
-						"type": "varchar"
-					},
-					{
-						"name": "Department",
-						"type": "varchar"
-					},
-					{
-						"name": "SubDepartment",
-						"type": "varchar"
-					},
-					{
-						"name": "Class",
-						"type": "varchar"
-					},
-					{
-						"name": "Short_name",
+						"name": "store_code",
 						"type": "varchar"
 					},
 					{
@@ -194,105 +259,30 @@
 						"type": "varchar"
 					},
 					{
-						"name": "Waist",
-						"type": "varchar"
-					},
-					{
-						"name": "Inseam",
-						"type": "varchar"
-					},
-					{
-						"name": "NetSold_Qty",
-						"type": "varchar"
-					},
-					{
-						"name": "Cost",
-						"type": "varchar"
-					},
-					{
-						"name": "Retail_Price",
-						"type": "varchar"
-					},
-					{
-						"name": "Unit_Price_Sold",
-						"type": "varchar"
-					},
-					{
-						"name": "Discount_ID",
-						"type": "varchar"
-					},
-					{
-						"name": "Discount_Code",
-						"type": "varchar"
-					},
-					{
-						"name": "Discount_Description",
-						"type": "varchar"
-					},
-					{
-						"name": "Line_Applied",
-						"type": "varchar"
-					},
-					{
-						"name": "Amount_Discount",
-						"type": "varchar"
-					},
-					{
-						"name": "Percent_Discount",
-						"type": "varchar"
-					},
-					{
-						"name": "New_Price_After_Discount",
-						"type": "varchar"
-					},
-					{
-						"name": "NetSold_Amount",
-						"type": "varchar"
-					},
-					{
-						"name": "TAX_RATE",
-						"type": "varchar"
-					},
-					{
-						"name": "TAX_AMOUNT1",
-						"type": "varchar"
-					},
-					{
-						"name": "TAX_AMOUNT2",
-						"type": "varchar"
-					},
-					{
 						"name": "staff_code",
 						"type": "varchar"
 					},
 					{
-						"name": "Staff_Name",
-						"type": "varchar"
+						"name": "net_sold_qty",
+						"type": "int",
+						"precision": 10
 					},
 					{
-						"name": "TS_ID",
-						"type": "varchar"
+						"name": "net_sold_amt",
+						"type": "decimal",
+						"precision": 9,
+						"scale": 2
 					},
 					{
-						"name": "PriceOverride",
-						"type": "varchar"
-					},
-					{
-						"name": "Surver_Gender",
-						"type": "varchar"
-					},
-					{
-						"name": "Surver_Age",
-						"type": "varchar"
-					},
-					{
-						"name": "vipcode",
-						"type": "varchar"
+						"name": "tax_amt",
+						"type": "decimal",
+						"precision": 9,
+						"scale": 2
 					}
 				],
 				"typeProperties": {
 					"schema": "prod",
-					"table": "Retail_Sales_Detail"
+					"table": "fact_sales"
 				}
 			},
 			"dependsOn": [
@@ -879,6 +869,197 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/retail_sales_detail_prod_table_dataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "smehersynapse",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "Store_Code",
+						"type": "varchar"
+					},
+					{
+						"name": "Store_Name",
+						"type": "varchar"
+					},
+					{
+						"name": "CAIS",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TRANSDATE",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TRANSTIME",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TRANSNUM",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "LINE_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "VOID_FLAG",
+						"type": "char"
+					},
+					{
+						"name": "RCPT_NOTE1",
+						"type": "varchar"
+					},
+					{
+						"name": "RCPT_NOTE2",
+						"type": "varchar"
+					},
+					{
+						"name": "SALE_TYPE",
+						"type": "varchar"
+					},
+					{
+						"name": "Brand",
+						"type": "varchar"
+					},
+					{
+						"name": "Department",
+						"type": "varchar"
+					},
+					{
+						"name": "SubDepartment",
+						"type": "varchar"
+					},
+					{
+						"name": "Class",
+						"type": "varchar"
+					},
+					{
+						"name": "Short_name",
+						"type": "varchar"
+					},
+					{
+						"name": "product_code",
+						"type": "varchar"
+					},
+					{
+						"name": "Waist",
+						"type": "varchar"
+					},
+					{
+						"name": "Inseam",
+						"type": "varchar"
+					},
+					{
+						"name": "NetSold_Qty",
+						"type": "varchar"
+					},
+					{
+						"name": "Cost",
+						"type": "varchar"
+					},
+					{
+						"name": "Retail_Price",
+						"type": "varchar"
+					},
+					{
+						"name": "Unit_Price_Sold",
+						"type": "varchar"
+					},
+					{
+						"name": "Discount_ID",
+						"type": "varchar"
+					},
+					{
+						"name": "Discount_Code",
+						"type": "varchar"
+					},
+					{
+						"name": "Discount_Description",
+						"type": "varchar"
+					},
+					{
+						"name": "Line_Applied",
+						"type": "varchar"
+					},
+					{
+						"name": "Amount_Discount",
+						"type": "varchar"
+					},
+					{
+						"name": "Percent_Discount",
+						"type": "varchar"
+					},
+					{
+						"name": "New_Price_After_Discount",
+						"type": "varchar"
+					},
+					{
+						"name": "NetSold_Amount",
+						"type": "varchar"
+					},
+					{
+						"name": "TAX_RATE",
+						"type": "varchar"
+					},
+					{
+						"name": "TAX_AMOUNT1",
+						"type": "varchar"
+					},
+					{
+						"name": "TAX_AMOUNT2",
+						"type": "varchar"
+					},
+					{
+						"name": "staff_code",
+						"type": "varchar"
+					},
+					{
+						"name": "Staff_Name",
+						"type": "varchar"
+					},
+					{
+						"name": "TS_ID",
+						"type": "varchar"
+					},
+					{
+						"name": "PriceOverride",
+						"type": "varchar"
+					},
+					{
+						"name": "Surver_Gender",
+						"type": "varchar"
+					},
+					{
+						"name": "Surver_Age",
+						"type": "varchar"
+					},
+					{
+						"name": "vipcode",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "prod",
+					"table": "Retail_Sales_Detail"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/retail_sales_detail_stage_table_dataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1188,187 +1369,6 @@
 				"typeProperties": {
 					"schema": "stage",
 					"table": "store"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSynapseAnalyticsTable2')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "smehersynapse",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlDWTable",
-				"schema": [],
-				"typeProperties": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/FactSalesDataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "smehersynapse",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlDWTable",
-				"schema": [
-					{
-						"name": "transaction_date",
-						"type": "date"
-					},
-					{
-						"name": "transaction_num",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "line_id",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "store_code",
-						"type": "varchar"
-					},
-					{
-						"name": "product_code",
-						"type": "varchar"
-					},
-					{
-						"name": "staff_code",
-						"type": "varchar"
-					},
-					{
-						"name": "net_sold_qty",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "net_sold_amt",
-						"type": "decimal",
-						"precision": 9,
-						"scale": 2
-					},
-					{
-						"name": "tax_amt",
-						"type": "decimal",
-						"precision": 9,
-						"scale": 2
-					}
-				],
-				"typeProperties": {
-					"schema": "prod",
-					"table": "fact_sales"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DimStoreDataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "smehersynapse",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlDWTable",
-				"schema": [
-					{
-						"name": "store_code",
-						"type": "varchar"
-					},
-					{
-						"name": "store_name",
-						"type": "varchar"
-					}
-				],
-				"typeProperties": {
-					"schema": "prod",
-					"table": "dim_store"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DimProductDataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "smehersynapse",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlDWTable",
-				"schema": [
-					{
-						"name": "product_code",
-						"type": "varchar"
-					},
-					{
-						"name": "brand",
-						"type": "varchar"
-					},
-					{
-						"name": "department",
-						"type": "varchar"
-					},
-					{
-						"name": "sub_department",
-						"type": "varchar"
-					}
-				],
-				"typeProperties": {
-					"schema": "prod",
-					"table": "dim_product"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/smehersynapse')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DimStaffDataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "smehersynapse",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlDWTable",
-				"schema": [
-					{
-						"name": "staff_code",
-						"type": "varchar"
-					},
-					{
-						"name": "staff_name",
-						"type": "varchar"
-					}
-				],
-				"typeProperties": {
-					"schema": "prod",
-					"table": "dim_staff"
 				}
 			},
 			"dependsOn": [

@@ -76,57 +76,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/sales_reporting_pipeline')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Sales_Reprorting_Dataflow",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "RetailSalesDetail",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"RetailSalesDetail": {},
-									"FactSales": {},
-									"DimStore": {},
-									"DimProduct": {},
-									"DimStaff": {}
-								}
-							},
-							"staging": {
-								"linkedService": {
-									"referenceName": "smeheradlsg2",
-									"type": "LinkedServiceReference"
-								},
-								"folderPath": "source"
-							},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							}
-						}
-					}
-				],
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/RetailSalesDetail')]"
-			]
 		}
 	]
 }
