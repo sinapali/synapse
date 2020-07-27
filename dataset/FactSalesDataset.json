@@ -1,0 +1,60 @@
+{
+	"name": "FactSalesDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "smehersynapse",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "transaction_date",
+				"type": "date"
+			},
+			{
+				"name": "transaction_num",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "line_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "store_code",
+				"type": "varchar"
+			},
+			{
+				"name": "product_code",
+				"type": "varchar"
+			},
+			{
+				"name": "staff_code",
+				"type": "varchar"
+			},
+			{
+				"name": "net_sold_qty",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "net_sold_amt",
+				"type": "decimal",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "tax_amt",
+				"type": "decimal",
+				"precision": 9,
+				"scale": 2
+			}
+		],
+		"typeProperties": {
+			"schema": "prod",
+			"table": "fact_sales"
+		}
+	}
+}
